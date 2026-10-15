@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d19">
+  <meta name="description" content="ENEM QUEST: estude para o ENEM com questões, níveis, desafios e progresso.">
+  <title>ENEM QUEST — Sua jornada até a aprovação</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Carregue a biblioteca antes dos arquivos do projeto -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="background-glow"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" id="brand-home">
+      <span class="brand-icon">Q</span>
+      <span>ENEM <strong>QUEST</strong></span>
+    </a>
+    <div class="top-actions">
+      <span id="header-status" class="status-label">Sua jornada começa aqui</span>
+      <button id="logout-btn" class="btn btn-outline hidden" type="button">Sair</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="auth-screen" class="auth-layout">
+      <div class="hero">
+        <span class="eyebrow">SUA JORNADA COMEÇA AGORA</span>
+        <h1>Transforme seus estudos em <span>conquistas.</span></h1>
+        <p>Aprenda, pratique questões e avance de nível enquanto se prepara para o ENEM.</p>
+
+        <div class="feature-list">
+          <div class="feature"><span>✦</span><div><strong>Aprendizado por níveis</strong><small>Avance etapa por etapa.</small></div></div>
+          <div class="feature"><span>◎</span><div><strong>Questões de prática</strong><small>Teste o que você aprendeu.</small></div></div>
+          <div class="feature"><span>↗</span><div><strong>Progresso acompanhado</strong><small>Acompanhe seus resultados.</small></div></div>
+        </div>
+      </div>
+
+      <div class="auth-card">
+        <div class="auth-heading">
+          <span class="eyebrow">ÁREA DO ESTUDANTE</span>
+          <h2 id="auth-title">Entre na sua conta</h2>
+          <p id="auth-subtitle">Continue sua preparação para o ENEM.</p>
+        </div>
+
+        <form id="auth-form">
+          <label for="auth-email">E-mail</label>
+          <input id="auth-email" type="email" placeholder="voce@email.com" autocomplete="email" required>
+
+          <label for="auth-password">Senha</label>
+          <input id="auth-password" type="password" placeholder="Mínimo de 6 caracteres" minlength="6" autocomplete="current-password" required>
+
+          <button id="auth-submit" class="btn btn-primary full-width" type="submit">
+            Entrar na plataforma
+          </button>
+        </form>
+
+        <p id="auth-message" class="message" role="status" aria-live="polite"></p>
+
+        <div class="auth-switch">
+          <span id="auth-switch-text">Ainda não tem conta?</span>
+          <button id="auth-toggle" class="text-button" type="button">Criar cadastro</button>
+        </div>
+        <p class="fine-print">Seu progresso online depende da configuração correta do Supabase.</p>
+      </div>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="welcome">
+        <div>
+          <span class="eyebrow">PAINEL DO ESTUDANTE</span>
+          <h1>Continue sua <span>missão.</span></h1>
+          <p>Um passo de cada vez. Cada questão é uma oportunidade de aprender.</p>
+        </div>
+        <div class="level-badge"><span>SEU NÍVEL</span><strong id="level-number">1</strong></div>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card"><span>XP acumulado</span><strong id="xp-stat">0</strong><small>Experiência conquistada</small></article>
+        <article class="stat-card"><span>Questões respondidas</span><strong id="answered-stat">0</strong><small>Prática acumulada</small></article>
+        <article class="stat-card"><span>Taxa de acertos</span><strong id="accuracy-stat">0%</strong><small>Nas questões respondidas</small></article>
+      </div>
+
+      <section class="progress-card">
+        <div class="section-heading">
+          <div><span class="eyebrow">EVOLUÇÃO</span><h2>Seu progresso</h2></div>
+          <span id="xp-label" class="muted">0 / 100 XP</span>
+        </div>
+        <div class="progress-track"><div id="xp-bar" class="progress-fill"></div></div>
+        <p id="progress-message" class="muted">Responda questões para ganhar experiência.</p>
+      </section>
+
+      <section class="modules-section">
+        <div class="section-heading">
+          <div><span class="eyebrow">TRILHA DE APRENDIZADO</span><h2>Escolha sua próxima missão</h2></div>
+          <span id="module-count" class="muted">22 módulos</span>
+        </div>
+        <div id="module-grid" class="module-grid"></div>
+      </section>
+
+      <section id="quiz-panel" class="quiz-panel hidden">
+        <div class="section-heading">
+          <div><span class="eyebrow">DESAFIO ATIVO</span><h2 id="quiz-title">Questão</h2></div>
+          <button id="close-quiz" class="btn btn-outline" type="button">Voltar</button>
+        </div>
+        <div class="question-meta">
+          <span id="question-count"></span>
+          <span id="question-subject"></span>
+        </div>
+        <div class="progress-track"><div id="quiz-progress" class="progress-fill"></div></div>
+        <h3 id="question-text" class="question-text"></h3>
+        <div id="answer-options" class="answer-options"></div>
+        <p id="answer-feedback" class="message" aria-live="polite"></p>
+        <button id="next-question" class="btn btn-primary" type="button" disabled>Confirmar resposta</button>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>ENEM QUEST</span>
+    <span>Aprender hoje. Conquistar amanhã.</span>
+  </footer>
+</body>
+</html>
